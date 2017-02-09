@@ -1,0 +1,4 @@
+Earth: https://upload.wikimedia.org/wikipedia/commons/2/22/Earth_Western_Hemisphere_transparent_background.png
+asteroid: http://userpages.umbc.edu/~sohisa1/images/artwork/cosmoknights/backgrounds/asteroid.png
+used help to get the clicks working: http://www.html5gamedevs.com/topic/15852-detecting-click-on-child-in-a-group-of-sprites/
+and phaser's tut: http://phaser.io/tutorials/making-your-first-phaser-game/part2
