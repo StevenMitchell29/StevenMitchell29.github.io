@@ -3,7 +3,7 @@ window.onload = function() {
     
     "use strict";
     
-    var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update } );
+    var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, render: render } );
     
     function preload() {
 
@@ -51,7 +51,7 @@ window.onload = function() {
         bads.enableBody = true;
 
 
-        //  Here we'll create 20 in random positions
+        //  Here we'll create  in random positions
         for (var i = 0; i < 20; i++) {
             var x, y;
             x = game.rnd.integerInRange(0, 1920);
