@@ -12,8 +12,11 @@ window.onload = function() {
         game.load.image('bad', 'assets/bad.png', 32, 48);
 
         //game.load.image('kidney', 'assets/kidney.png');
+        game.load.audio('scream', 'assets/Wilhelm-Scream.mp3');
 
     }
+
+    var music;
 
     var player;
     var cursors;
@@ -35,6 +38,8 @@ window.onload = function() {
         game.add.tileSprite(0, 0, 1920, 1920, 'background');
         game.world.setBounds(0, 0, 1920, 1920);
         game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        music = game.add.audio('scream');
 
         //kidney = game.add.sprite(game.world.centerX, game.world.centerY, 'kidney');
         //kidney.scale.setTo();
@@ -91,6 +96,8 @@ window.onload = function() {
     function takeKidney(player, bad) {
 
         bad.kill();
+        music.play();
+
 
         //  Add and update the score
         score += 1;
