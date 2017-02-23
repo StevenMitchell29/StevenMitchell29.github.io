@@ -11,7 +11,6 @@ window.onload = function() {
         game.load.image('player', 'assets/doc.png');
         game.load.image('bad', 'assets/bad.png', 32, 48);
 
-        //game.load.image('kidney', 'assets/kidney.png');
         game.load.audio('scream', 'assets/Wilhelm-Scream.mp3');
 
     }
@@ -41,8 +40,6 @@ window.onload = function() {
 
         music = game.add.audio('scream');
 
-        //kidney = game.add.sprite(game.world.centerX, game.world.centerY, 'kidney');
-        //kidney.scale.setTo();
 
         player = game.add.sprite(game.world.centerX, game.world.centerY, 'player');
         player.scale.setTo(.05, .05);
@@ -65,9 +62,6 @@ window.onload = function() {
             //make it so that it is scaled and touchable
             var bad = bads.create(x, y, 'bad');
             bad.scale.setTo(.01, .01);
-            //kid.inputEnabled = true;
-            //kid.input.useHandCursor = true;
-            //kid.events.onInputDown.add(listener, this);
             
         }
     }
@@ -107,7 +101,7 @@ window.onload = function() {
        // game.debug.cameraInfo(game.camera, 32, 32);
         // game.debug.spriteCoords(player, 32, 500);
 
-        game.debug.text('Kidneys left: ' + score + ' / ' + 20, 32, 32);
+        game.debug.text('Family left to find: ' + score + ' / ' + 20, 32, 32);
 
     }
 };
