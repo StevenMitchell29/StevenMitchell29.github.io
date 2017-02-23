@@ -64,7 +64,7 @@ window.onload = function() {
 
             //make it so that it is scaled and touchable
             var bad = bads.create(x, y, 'bad');
-            bad.scale.setTo(.15, .15);
+            bad.scale.setTo(.01, .01);
             //kid.inputEnabled = true;
             //kid.input.useHandCursor = true;
             //kid.events.onInputDown.add(listener, this);
