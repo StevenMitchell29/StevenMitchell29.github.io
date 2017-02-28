@@ -10,7 +10,7 @@ window.onload = function () {
     // loading functions to reflect where you are putting the assets.
     // All loading functions will typically all be found inside "preload()".
 
-    var game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, update: update });
+    var game = new Phaser.Game(800, 800, Phaser.AUTO, 'game', { preload: preload, create: create, update: update, render:render });
 
     function preload() {
         // Load an image and call it 'logo'.
@@ -30,6 +30,20 @@ window.onload = function () {
     var x = 0;
     var y = 0;
     var tempTree;
+
+    var style;
+    var style2;
+    var text;
+    var text2;
+    var text3;
+
+    var timer;
+    var total = 0;
+
+    var goalTrees = 10;
+
+    var win = false;
+    var redo = false;
 
     function create() {
         earthy = game.add.sprite(0, 0, 'bg');
@@ -53,6 +67,23 @@ window.onload = function () {
         // Make it bounce off of the world bounds.
         //bouncy.body.collideWorldBounds = true;
 
+        style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
+        style2 = { font: "25px Verdana", fill: "#000000", align: "center" };
+        text = game.add.text(15, 45, "Trees planted: " + touched + "/" + goalTrees, style);
+
+
+        //  Create our Timer
+
+        timer = game.time.events.add(Phaser.Timer.SECOND * 5, checkVictory, this);
+        //timer = game.time.create(false);
+
+        //  Set a TimerEvent to occur after 2 seconds
+        //timer.loop(10000, updateCounter, this);
+
+        //  Start the timer running - this is important!
+        //  It won't start automatically, allowing you to hook it to button events and the like.
+        //timer.start();
+        text2 = game.add.text(15, 15, "Time Left: " + Math.floor(game.time.events.duration/ 1000), style);
 
     }
 
@@ -67,23 +98,48 @@ window.onload = function () {
         // Add some text using a CSS style.
         // Center it in X, and position its top 15 pixels from the top of the world.
        
-        //var style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-        //var text = game.add.text(game.world.centerX, 15, "Trees planted: "+ touched, style);
-        //text.anchor.setTo(0.5, 0.0);
+        text2.setText("Time Left: " + Math.floor(game.time.events.duration / 1000));
+
+        if (redo == true) {
+            if (win == true) {
+                touched = 0;
+                goalTrees *= 2;
+                redo = false;
+                win = fals;e
+            }
+            else {
+                touched = 0;
+                redo = false;
+            }
+
+        }
+    }
+
+    function checkVictory() {
+        if (touched >= goalTrees) {
+            text3 = game.add.text(game.world.centerX-200, game.world.centerY, "YOU WIN! Click the button to try again!", style2);
+            redo = true;
+            win = true;
+        }
+        else {
+            text3 = game.add.text(game.world.centerX-200, game.world.centerY, "YOU LOSE! Click the button to try again!", style2);
+            redo = true;
+            win = false;
+        }
     }
 
     function render() {
 
-        // game.debug.cameraInfo(game.camera, 32, 32);
-        // game.debug.spriteCoords(player, 32, 500);
-
-        game.debug.text('Trees Planted: ' + touched, 32, 32);
+        //game.debug.text('Time until event: ' + timer.duration.toFixed(0), 32, 32);
+        //game.debug.text('Loop Count: ' + total, 32, 64);
 
     }
+
     function actionOnClick() {
+
         whichTree = game.rnd.integerInRange(0, 1)
         x = game.rnd.integerInRange(0, 600)
-        y = game.rnd.integerInRange(0, 600)
+        y = game.rnd.integerInRange(50, 600)
         if (whichTree === 1) {
             tempTree = game.add.sprite(x, y, 'tree1');
         }
@@ -93,7 +149,8 @@ window.onload = function () {
         tempTree.scale.setTo(.01, .01);
 
         touched++;
-        //background.visible = !background.visible;
+
+        text.setText("Trees planted: " + touched + "/" + goalTrees);
 
     }
 };
