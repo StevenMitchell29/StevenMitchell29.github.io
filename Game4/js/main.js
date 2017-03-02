@@ -18,8 +18,11 @@ window.onload = function () {
         game.load.image('re', 'assets/Recycle.png');
         game.load.image('tree1', 'assets/tree1.png');
         game.load.image('tree2', 'assets/tree2.png');
+        game.load.audio('treesong', 'assets/TreeSong.mp3');
+
     }
 
+    var highscore = 0;
     var earthy;
     var button;
     var tree1;
@@ -36,15 +39,19 @@ window.onload = function () {
     var text;
     var text2;
     var text3;
+    var text4;
+    var text5;
+    var loopsWon = 0;
 
     var timer;
     var total = 0;
 
-    var goalTrees = 10;
+    var goalTrees = 5;
 
     var win = false;
     var redo = false;
 
+    var music;
     function create() {
         earthy = game.add.sprite(0, 0, 'bg');
         earthy.scale.setTo(.40, .40);
@@ -54,22 +61,17 @@ window.onload = function () {
 
         game.add.sprite(0, 0, 'tree2');
 
+        music = game.add.audio('treesong');
+        music.play();
 
 
-        // Create a sprite at the center of the screen using the 'logo' image.
-       // bouncy = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-        // Anchor the sprite at its center, as opposed to its top-left corner.
-        // so it will be truly centered.
-        //bouncy.anchor.setTo(0.5, 0.5);
-
-        // Turn on the arcade physics engine for this sprite.
-        //game.physics.enable(bouncy, Phaser.Physics.ARCADE);
-        // Make it bounce off of the world bounds.
-        //bouncy.body.collideWorldBounds = true;
 
         style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-        style2 = { font: "25px Verdana", fill: "#000000", align: "center" };
+        style2 = { font: "25px Verdana", fill: "#ffffff ", align: "center" };
         text = game.add.text(15, 45, "Trees planted: " + touched + "/" + goalTrees, style);
+        text4 = game.add.text(15, 75, "Loops won: " + loopsWon, style);
+        text5 = game.add.text(560, 15, "Highest Score: " + highscore, style);
+
 
 
         //  Create our Timer
@@ -99,20 +101,14 @@ window.onload = function () {
         // Center it in X, and position its top 15 pixels from the top of the world.
        
         text2.setText("Time Left: " + Math.floor(game.time.events.duration / 1000));
-
-        if (redo == true) {
-            if (win == true) {
-                touched = 0;
-                goalTrees *= 2;
-                redo = false;
-                win = fals;e
-            }
-            else {
-                touched = 0;
-                redo = false;
-            }
+        
+        if (touched > highscore) {
+            highscore = touched;
+            text5.setText("Highest Score: " + highscore);
 
         }
+
+
     }
 
     function checkVictory() {
@@ -120,6 +116,8 @@ window.onload = function () {
             text3 = game.add.text(game.world.centerX-200, game.world.centerY, "YOU WIN! Click the button to try again!", style2);
             redo = true;
             win = true;
+            loopsWon++;
+            text4.setText("Loops won: " + loopsWon);
         }
         else {
             text3 = game.add.text(game.world.centerX-200, game.world.centerY, "YOU LOSE! Click the button to try again!", style2);
@@ -151,6 +149,24 @@ window.onload = function () {
         touched++;
 
         text.setText("Trees planted: " + touched + "/" + goalTrees);
+
+        if (redo == true) {
+            game.world.remove(text3);
+            game.world.remove(timer);
+            timer = game.time.events.add(Phaser.Timer.SECOND * 5, checkVictory, this);
+            if (win == true) {
+                touched = 0;
+                goalTrees *= 2;
+                redo = false;
+                win = false
+
+
+            }
+            else {
+                touched = 0;
+                redo = false;
+            }
+        }
 
     }
 };
