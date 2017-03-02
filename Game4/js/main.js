@@ -75,39 +75,18 @@ window.onload = function () {
 
 
         //  Create our Timer
-
         timer = game.time.events.add(Phaser.Timer.SECOND * 5, checkVictory, this);
-        //timer = game.time.create(false);
-
-        //  Set a TimerEvent to occur after 2 seconds
-        //timer.loop(10000, updateCounter, this);
-
-        //  Start the timer running - this is important!
-        //  It won't start automatically, allowing you to hook it to button events and the like.
-        //timer.start();
         text2 = game.add.text(15, 15, "Time Left: " + Math.floor(game.time.events.duration/ 1000), style);
 
     }
 
-    function update() {
-        // Accelerate the 'logo' sprite towards the cursor,
-        // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
-        // in X or Y.
-        // This function returns the rotation angle that makes it visually match its
-        // new trajectory.
-        //bouncy.rotation = game.physics.arcade.accelerateToPointer(bouncy, game.input.activePointer, 500, 500, 500);
-
-        // Add some text using a CSS style.
-        // Center it in X, and position its top 15 pixels from the top of the world.
-       
+    function update() {   
         text2.setText("Time Left: " + Math.floor(game.time.events.duration / 1000));
         
         if (touched > highscore) {
             highscore = touched;
             text5.setText("Highest Score: " + highscore);
-
         }
-
 
     }
 
@@ -137,7 +116,7 @@ window.onload = function () {
 
         whichTree = game.rnd.integerInRange(0, 1)
         x = game.rnd.integerInRange(0, 600)
-        y = game.rnd.integerInRange(50, 600)
+        y = game.rnd.integerInRange(75, 600)
         if (whichTree === 1) {
             tempTree = game.add.sprite(x, y, 'tree1');
         }
