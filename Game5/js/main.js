@@ -23,6 +23,7 @@ window.onload = function() {
 
     var style;
     var text;
+
     function create() {
         puzzleGroup = game.add.group();
         selectedGroup = game.add.group();
@@ -72,9 +73,7 @@ window.onload = function() {
         //  The Text is positioned at 0, 100
         text = game.add.text(0, 0, "Select like colors that are touching to gain points", style);
         text.setTextBounds(0, 50, 800, 100);
-        text.inputEnabled = true;
-        text.events.onInputDown.add(clickSquares, this);
-        
+        text.inputEnabled = true;        
     }
 
     function update() {
@@ -88,10 +87,10 @@ window.onload = function() {
     
     function clickSquares(square) {
         //selected = selectedGroup.create(square.x, square.y, "white");
-        square.scale.setTo(.5, .5);
-        alert(square.x + "+" + square.y);
+        //square.scale.setTo(.5, .5);
+        square.loadTexture = ('white');
 
-        //square.loadTexture = ("white", false);
+        alert(square.name+ "+" +square.x + "+" + square.y);
         //square.tint = Math.random() * 0xffffff;
         
     }
