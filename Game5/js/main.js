@@ -52,6 +52,8 @@ window.onload = function() {
             square.name = "white";
             square.inputEnabled = true;
             square.events.onInputDown.add(clickSquares, this);
+            //square.input.enableDrag();
+
             square.taken = false;
             square.xPos = i;
         }
@@ -77,6 +79,7 @@ window.onload = function() {
     }
 
     function update() {
+
     }
 
     function render() {
@@ -93,23 +96,47 @@ window.onload = function() {
     }
 
     function clickSquares(square) {
-
-        
-        if (turn === true) {
-            player1 = player1Group.create(square.x + 200, square.y + 125, 'blue');
-            player1.xPos = square.xPos;
-            checkForVictory();
-
-            text.setText("Player 2's turn");
-            turn = false;
+        if (player1Wins >= 2) {
+            winText.visible = true;
+            player1Group.removeAll(true);
+            player2Group.removeAll(true);
+            text3.setText('Player 1 wins: ' + player1Wins);
+            text4.setText('Player 2 wins: ' + player2Wins); for (var i = 0, len = puzzleGroup.children.length; i < len; i++) {
+                puzzleGroup.children[i].input.enableDrag();
+            }
+            winText.setText("Player 1 click the boxes to\nreveal whats gone wrong!");
+            puzzleGroup.remove(square);
         }
-        else if (turn === false) {
-            player2 = player2Group.create(square.x + 200, square.y + 125, 'red');
-            player2.xPos = square.xPos;
-            checkForVictory();
+        else if (player2Wins >= 2) {
+            winText.visible = true;
+            player1Group.removeAll(true);
+            player2Group.removeAll(true);
+            text3.setText('Player 1 wins: ' + player1Wins);
+            text4.setText('Player 2 wins: ' + player2Wins);
+            for (var i = 0, len = puzzleGroup.children.length; i < len; i++) {
+                puzzleGroup.children[i].input.enableDrag();
+            }
+            winText.setText("Player 2 click the boxes to\n reveal whats gone wrong!");
+            puzzleGroup.remove(square);
 
-            text.setText("Player 1's turn");
-            turn = true;
+        }
+        else {
+            if (turn === true) {
+                player1 = player1Group.create(square.x + 200, square.y + 125, 'blue');
+                player1.xPos = square.xPos;
+                checkForVictory();
+
+                text.setText("Player 2's turn");
+                turn = false;
+            }
+            else if (turn === false) {
+                player2 = player2Group.create(square.x + 200, square.y + 125, 'red');
+                player2.xPos = square.xPos;
+                checkForVictory();
+
+                text.setText("Player 1's turn");
+                turn = true;
+            }
         }
         
     }
@@ -122,22 +149,32 @@ window.onload = function() {
                     numbers.push(player1Group.children[i].xPos);
                 }
                 numbers.sort();
-                if (numbers[0] === 0 && numbers[1] === 1 && numbers[2] === 2 || numbers[0] === 3 && numbers[1] === 4 && numbers[2] === 5 ||numbers[0] === 6 && numbers[1] ===7 && numbers[2] === 8) {
+                if (numbers.indexOf(0) !=-1 && numbers.indexOf(1) !=-1 && numbers.indexOf(2)!=-1 || (numbers.indexOf(3) + numbers.indexOf(4) + numbers.indexOf(5)) ===3 || (numbers.indexOf(6) + numbers.indexOf(7) + numbers.indexOf(8))===3) {
+
                     winText.visible = true;
                     winText.setText("Player 1 wins!");
                     player1Wins+=1;
                 }
-                else if (numbers[0] === 0 && numbers[1] === 3 && numbers[2] === 6 || numbers[0] === 1 && numbers[1] === 4 && numbers[2] === 7 || numbers[0] === 2 && numbers[1] === 5 && numbers[2] === 8) {
+                else if (numbers.indexOf(0) != -1 && numbers.indexOf(3) != -1 && numbers.indexOf(6) != -1 || numbers.indexOf(1) != -1 && numbers.indexOf(4) != -1 && numbers.indexOf(7) != -1 || numbers.indexOf(2) != -1 && numbers.indexOf(5) != -1 && numbers.indexOf(8) != -1) {
+                    alert(numbers);
+                    alert(numbers.indexOf(0) + numbers.indexOf(3) + numbers.indexOf(6));
+                    alert(numbers.indexOf(1) + numbers.indexOf(4) + numbers.indexOf(7));
+                    alert(numbers.indexOf(2) + numbers.indexOf(5) + numbers.indexOf(8));
+
                     winText.visible = true;
                     winText.setText("Player 1 wins!");
                     player1Wins+=1;
 
                 }
-                else if (numbers[0] === 0 && numbers[1] === 4 && numbers[2] === 8 || numbers[0] === 2 && numbers[1] === 4 && numbers[2] === 6) {
+                else if (numbers.indexOf(0) != -1 && numbers.indexOf(4) != -1 && numbers.indexOf(8)!= -1 || numbers.indexOf(2)!= -1 && numbers.indexOf(4) != -1 && numbers.indexOf(6)!= -1) {
                     winText.visible = true;
                     winText.setText("Player 1 wins!");
                     player1Wins+=1;
                 }
+                //alert(numbers);
+                //alert(numbers.indexOf(0) + numbers.indexOf(1) + numbers.indexOf(2));
+                //alert(numbers.indexOf(0) + numbers.indexOf(4) + numbers.indexOf(8));
+                //alert(numbers.indexOf(2) + numbers.indexOf(4) + numbers.indexOf(6));
             }
         }
         else {
@@ -147,18 +184,18 @@ window.onload = function() {
                     numbers.push(player2Group.children[i].xPos);
                 }
                 numbers.sort();
-                if (numbers[0] === 0 && numbers[1] === 1 && numbers[2] === 2 || numbers[0] === 3 && numbers[1] === 4 && numbers[2] === 5 || numbers[0] === 6 && numbers[1] === 7 && numbers[2] === 8) {
+                if (numbers.indexOf(0) != -1 && numbers.indexOf(1) != -1 && numbers.indexOf(2) != -1 || (numbers.indexOf(3) + numbers.indexOf(4) + numbers.indexOf(5)) === 3 || (numbers.indexOf(6) + numbers.indexOf(7) + numbers.indexOf(8)) === 3) {
                     winText.visible = true;
                     winText.setText("Player 2 wins!");
                     player2Wins += 1;
                 }
-                else if (numbers[0] === 0 && numbers[1] === 3 && numbers[2] === 6 || numbers[0] === 1 && numbers[1] === 4 && numbers[2] === 7 || numbers[0] === 2 && numbers[1] === 5 && numbers[2] === 8) {
+                else if (numbers.indexOf(0) != -1 && numbers.indexOf(3) != -1 && numbers.indexOf(6) != -1 || numbers.indexOf(1) != -1 && numbers.indexOf(4) != -1 && numbers.indexOf(7) != -1 || numbers.indexOf(2) != -1 && numbers.indexOf(5) != -1 && numbers.indexOf(8) != -1) {
                     winText.visible = true;
                     winText.setText("Player 2 wins!");
                     player2Wins += 1;
 
                 }
-                else if (numbers[0] === 0 && numbers[1] === 4 && numbers[2] === 8 || numbers[0] === 2 && numbers[1] === 4 && numbers[2] === 6) {
+                else if (numbers.indexOf(0) != -1 && numbers.indexOf(4) != -1 && numbers.indexOf(8) != -1 || numbers.indexOf(2) != -1 && numbers.indexOf(4) != -1 && numbers.indexOf(6) != -1) {
                     winText.visible = true;
                     winText.setText("Player 2 wins!");
                     player2Wins += 1;
