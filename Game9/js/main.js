@@ -43,7 +43,7 @@ window.onload = function () {
         player1bullets = game.add.group();
         player1bullets.enableBody = true;
         player1bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        player1bullets.createMultiple(4, 'bullet');
+        player1bullets.createMultiple(6, 'bullet');
         player1bullets.setAll('anchor.x', 0.5);
         player1bullets.setAll('anchor.y', 1);
         player1bullets.setAll('outOfBoundsKill', true);
@@ -54,7 +54,7 @@ window.onload = function () {
         player2Bullet = game.add.group();
         player2Bullet.enableBody = true;
         player2Bullet.physicsBodyType = Phaser.Physics.ARCADE;
-        player2Bullet.createMultiple(4, 'bullet2');
+        player2Bullet.createMultiple(6, 'bullet2');
         player2Bullet.setAll('anchor.x', 0.5);
         player2Bullet.setAll('anchor.y', 1);
         player2Bullet.setAll('outOfBoundsKill', true);
