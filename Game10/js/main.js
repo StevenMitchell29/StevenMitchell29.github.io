@@ -249,7 +249,7 @@ window.onload = function () {
             //alert();
             createAliens();
         }
-        if (player2Lives.countLiving() > 1 && player1lives.countLiving() > 1) {
+        if (player2Lives.countLiving() > 0 && player1lives.countLiving() > 0) {
             if (game.time.now > firingTimer1) {
                 enemyShoot1();
             }
