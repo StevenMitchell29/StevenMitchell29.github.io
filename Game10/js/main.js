@@ -15,6 +15,8 @@ window.onload = function () {
         game.load.image('enemyBullet', 'assets/enemy-bullet.png');
         game.load.spritesheet('invader', 'assets/invader32x32x4.png', 32, 32);
         game.load.audio('music', 'assets/SpaceTrip.mp3');
+        game.load.image('enemyBullet', 'assets/games/invaders/enemy-bullet.png');
+
 
     }
 
@@ -47,7 +49,9 @@ window.onload = function () {
     var total = 0;
     var stateText;
     var music;
-
+    var enemyBullets;
+    var firingTimer1 = 0;
+    var firingTimer2 = 0;
 
 
     function create() {
@@ -65,7 +69,7 @@ window.onload = function () {
         player1bullets = game.add.group();
         player1bullets.enableBody = true;
         player1bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        player1bullets.createMultiple(3, 'bullet');
+        player1bullets.createMultiple(5, 'bullet');
         player1bullets.setAll('anchor.x', 0.5);
         player1bullets.setAll('anchor.y', 1);
         player1bullets.setAll('outOfBoundsKill', true);
@@ -86,7 +90,7 @@ window.onload = function () {
         enemyBullets = game.add.group();
         enemyBullets.enableBody = true;
         enemyBullets.physicsBodyType = Phaser.Physics.ARCADE;
-        enemyBullets.createMultiple(5, 'enemyBullet');
+        enemyBullets.createMultiple(30, 'enemyBullet');
         enemyBullets.setAll('anchor.x', 0.5);
         enemyBullets.setAll('anchor.y', 1);
         enemyBullets.setAll('outOfBoundsKill', true);
@@ -159,7 +163,7 @@ window.onload = function () {
         timer = game.time.create(false);
 
         //  Set a TimerEvent to occur after 2 seconds
-        timer.loop(12000, updateCounter, this);
+        timer.loop(10000, updateCounter, this);
 
         //  Start the timer running - this is important!
         //  It won't start automatically, allowing you to hook it to button events and the like.
@@ -241,12 +245,105 @@ window.onload = function () {
         game.physics.arcade.overlap(player1bullets, aliens, player1HitsAlien, null, this);
         game.physics.arcade.overlap(player2Bullet, aliens, player2HitsAlien, null, this);
 
-        if (timer.duration.toFixed(0) < 5) {
+        if (timer.duration.toFixed(0) < 10) {
             //alert();
             createAliens();
         }
+        if (player2Lives.countLiving() > 1 && player1lives.countLiving() > 1) {
+            if (game.time.now > firingTimer1) {
+                enemyShoot1();
+            }
+            if (game.time.now > firingTimer2) {
+                enemyShoot2();
+            }
+            game.physics.arcade.overlap(enemyBullets, player1, enemyHitsPlayer1, null, this);
+            game.physics.arcade.overlap(enemyBullets, player2, enemyHitsPlayer2, null, this);
+        }
 
-        //music.loop(2);
+    }
+    function enemyHitsPlayer1(player1, bullet) {
+
+        bullet.kill();
+
+        player1live = player1lives.getFirstAlive();
+
+        if (player1live) {
+            player1live.kill();
+        }
+
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(player1.body.x, player1.body.y);
+        explosion.play('kaboom', 30, false, true);
+
+        // When the player dies
+        if (player1lives.countLiving() < 1) {
+            player1.kill();
+            player1bullets.callAll('kill');
+
+            stateText.text = " PLAYER 2 WINS! \n Click to restart";
+            stateText.visible = true;
+
+            //the "click to restart" handler
+            game.input.onTap.addOnce(restart, this);
+        }
+    }
+
+    function enemyHitsPlayer2(player2, bullet) {
+
+        bullet.kill();
+
+        //lose a life
+        player2Live = player2Lives.getFirstAlive();
+        if (player2Live) {
+            player2Live.kill();
+        }
+
+        //Make it explode
+        var explosion = explosions.getFirstExists(false);
+        explosion.reset(player2.body.x, player2.body.y);
+        explosion.play('kaboom', 30, false, true);
+
+        // When the player dies
+        if (player2Lives.countLiving() < 1) {
+            player2.kill();
+            player2Bullet.callAll('kill');
+
+            stateText.text = " PLAYER 1 WINS! \n Click to restart";
+            stateText.visible = true;
+
+            //the "click to restart" handler
+            game.input.onTap.addOnce(restart, this);
+        }
+    }
+
+    function enemyShoot1() {
+
+        //  Grab the first bullet we can from the pool
+        enemyBullet = enemyBullets.getFirstExists(false);
+        var shooter = aliens.getFirstExists();
+        if(shooter){
+            enemyBullet.reset(shooter.body.x, shooter.body.y);
+            game.physics.arcade.moveToObject(enemyBullet, player1, 100);
+
+
+            firingTimer1 = game.time.now + 1500;
+        }
+        
+    }
+
+    function enemyShoot2() {
+
+        //  Grab the first bullet we can from the pool
+        enemyBullet = enemyBullets.getFirstExists(false);
+        var shooter = aliens.getFirstExists();
+        if (shooter) {
+            enemyBullet.reset(shooter.body.x, shooter.body.y);
+            game.physics.arcade.moveToObject(enemyBullet, player2, 100);
+
+
+            firingTimer2 = game.time.now + 1500;
+        }
+        
     }
 
     function render() {
