@@ -21,6 +21,9 @@ window.onload = function () {
     var player1;
     var player1up;
     var player1down;
+    var player1left;
+    var player1right;
+
     var player1bullets;
     var bulletTime = 0;
     var fireButton1;
@@ -144,6 +147,8 @@ window.onload = function () {
         //setting up movement and fire for player 1
         player1up = game.input.keyboard.addKey(Phaser.Keyboard.W);
         player1down = game.input.keyboard.addKey(Phaser.Keyboard.S);
+        player1left = game.input.keyboard.addKey(Phaser.Keyboard.A);
+        player1right = game.input.keyboard.addKey(Phaser.Keyboard.D);
         fireButton1 = game.input.keyboard.addKey(Phaser.Keyboard.C);
 
         //setting up movement and fire for player 2
@@ -200,6 +205,12 @@ window.onload = function () {
             else if (player1down.isDown) {
                 player1.body.velocity.y = 200;
             }
+            if (player1right.isDown) {
+                player1.body.velocity.x = 200;
+            }
+            else if (player1left.isDown) {
+                player1.body.velocity.x = -200;
+            }
             if (fireButton1.isDown) {
                 fireBullet();
             }
@@ -214,6 +225,12 @@ window.onload = function () {
             }
             else if (player2Movement.down.isDown) {
                 player2.body.velocity.y = 200;
+            }
+            if (player2Movement.left.isDown) {
+                player2.body.velocity.x = -200;
+            }
+            else if (player2Movement.right.isDown) {
+                player2.body.velocity.x = 200;
             }
             if (fireButton2.isDown) {
                 fireBullet2();
