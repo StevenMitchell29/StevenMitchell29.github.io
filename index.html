@@ -1,51 +1,119 @@
 <!DOCTYPE html>
 <html>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.bundle.min.js" integrity="sha384-CS0nxkpPy+xUkNGhObAISrkg/xjb3USVCwy+0/NMzd5VxgY4CMCyTkItmy5n0voC" crossorigin="anonymous"></script>
 <head>
     <meta charset="utf-8">
-    <title>CS325 Game Prototypes</title>
-
-<style>
-body
-{
-    color: #777;
-    font-family: "Avenir", Verdana, sans-serif;
-}
-#readme
-{
-    margin-top: 10px;
-}
-</style>
-
+    <title>Sneakerhead </title>
 </head>
-<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<h1>CS 325 Game Prototypes</h1>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
-<p>I am making creative and experimental game prototypes! Here is the list of them:
+<form class="dropdown-menu p-4">
+  <div class="form-group">
+    <label for="exampleDropdownFormEmail2">Email address</label>
+    <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+  </div>
+  <div class="form-group">
+    <label for="exampleDropdownFormPassword2">Password</label>
+    <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="dropdownCheck2">
+    <label class="form-check-label" for="dropdownCheck2">
+      Remember me
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
 
-<ol>
-<li><a href="game1/index.html">Digital Assignment 1</a></li>
-<li><a href="Game2/index.html">Digital Assignment 2</a></li>
-<li><a href="Game3/index.html">Digital Assignment 3</a></li>
-<li><a href="Game4/index.html">Digital Assignment 4</a></li>
-<li><a href="Game5/index.html">Digital Assignment 5 (remake of game 3)</a></li>
-<li>Bonus - Skipped</li>
-<li>PASS</li>
-<li>PASS</li>
-<li><a href="Game9/index.html">Digital Assignment 9</a></li>
-<li><a href="Game10/index.html">Digital Iteration of Game 9</a></li>
-
-</ol>
 
 
-<p>Here are the templates:
-
-<ul>
-<li><a href="template-minimal/index.html">A minimal template</a></li>
-<li><a href="template-minimal-gamestate/index.html">A minimal template that uses game states</a></li>
-<li><a href="template-gamestate-functional/index.html">A template with multiple game states (loading screen, main menu)</a></li>
-<li><a href="template-gamestate/index.html">A template with multiple game states in a different style</a></li>
-</ul>
 
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8">-->
+    <!--<title>CS325 Game Prototypes</title>-->
+<!--<style>-->
+<!--body-->
+<!--{-->
+    <!--color: #777;-->
+    <!--font-family: "Avenir", Verdana, sans-serif;-->
+<!--}-->
+<!--#readme-->
+<!--{-->
+    <!--margin-top: 10px;-->
+<!--}-->
+<!--</style>-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>CS 325 Game Prototypes</h1>-->
+
+<!--<p>I am making creative and experimental game prototypes! Here is the list of them:-->
+
+<!--<ol>-->
+<!--<li><a href="game1/index.html">Digital Assignment 1</a></li>-->
+<!--<li><a href="Game2/index.html">Digital Assignment 2</a></li>-->
+<!--<li><a href="Game3/index.html">Digital Assignment 3</a></li>-->
+<!--<li><a href="Game4/index.html">Digital Assignment 4</a></li>-->
+<!--<li><a href="Game5/index.html">Digital Assignment 5 (remake of game 3)</a></li>-->
+<!--<li>Bonus - Skipped</li>-->
+<!--<li>PASS</li>-->
+<!--<li>PASS</li>-->
+<!--<li><a href="Game9/index.html">Digital Assignment 9</a></li>-->
+<!--<li><a href="Game10/index.html">Digital Iteration of Game 9</a></li>-->
+
+<!--</ol>-->
+
+
+<!--<p>Here are the templates:-->
+
+<!--<ul>-->
+<!--<li><a href="template-minimal/index.html">A minimal template</a></li>-->
+<!--<li><a href="template-minimal-gamestate/index.html">A minimal template that uses game states</a></li>-->
+<!--<li><a href="template-gamestate-functional/index.html">A template with multiple game states (loading screen, main menu)</a></li>-->
+<!--<li><a href="template-gamestate/index.html">A template with multiple game states in a different style</a></li>-->
+<!--</ul>-->
+
+<!--</body>-->
+<!--</html>-->
